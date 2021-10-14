@@ -2,14 +2,24 @@ const { describe, before, it } = require('mocha')
 const { expect } = require('chai')
 const moment = require('moment')
 const { setupServer } = require('./helpers/server')
-const { setupKafka } = require('./helpers/kafka')
+const setupKafka = require('./helpers/kafka')
 const { WASP_SENSOR_TYPE } = require('../../app/env')
 
 const {
-  DUMMY_READING_PAYLOAD_1,
-  DUMMY_READING_PAYLOAD_2,
-  DUMMY_EVENT_PAYLOAD,
+  READING_PAYLOAD_1,
+  READING_PAYLOAD_2,
+  AIR_PRESS_PAYLOAD,
+  AIR_QUAL_PAYLOAD,
+  GPS_PAYLOAD_01,
+  GPS_PAYLOAD_02,
+  GPS_PAYLOAD_THINGY91_FORMAT_01,
+  GPS_PAYLOAD_THINGY91_FORMAT_02,
+  GPS_PAYLOAD_THINGY91_FORMAT_03,
+  BUTTON_EVENT_PAYLOAD,
+  FLIP_EVENT_PAYLOAD,
   UNEXPECTED_MESSAGE_TYPE_PAYLOAD,
+  UNEXPECTED_BUTTON_DATA_PAYLOAD,
+  UNEXPECTED_FLIP_DATA_PAYLOAD,
   UNEXPECTED_APP_ID_PAYLOAD,
 } = require('./data/payloads')
 
@@ -44,21 +54,57 @@ describe('message Processing', function () {
     singlePayloadTest({
       context,
       description: 'single reading',
-      payloadTemplate: DUMMY_READING_PAYLOAD_1,
-      expectation: 'should forward the correct reading',
-    })
-    singlePayloadTest({
-      context,
-      description: 'single reading',
-      payloadTemplate: DUMMY_READING_PAYLOAD_1,
+      payloadTemplate: READING_PAYLOAD_1,
       expectation: 'should forward the correct reading',
     })
 
     singlePayloadTest({
       context,
-      description: 'dummy event',
-      payloadTemplate: DUMMY_EVENT_PAYLOAD,
-      expectation: 'should forward the correct event',
+      description: 'air pressure reading',
+      payloadTemplate: AIR_PRESS_PAYLOAD,
+      expectation: 'should forward the correct reading',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'air quality reading',
+      payloadTemplate: AIR_QUAL_PAYLOAD,
+      expectation: 'should not forward unimportant readings',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'gps reading',
+      payloadTemplate: GPS_PAYLOAD_01,
+      expectation: 'should forward correct readings and event',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'gps reading',
+      payloadTemplate: GPS_PAYLOAD_02,
+      expectation: 'should forward correct readings and event',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'gps reading',
+      payloadTemplate: GPS_PAYLOAD_THINGY91_FORMAT_01,
+      expectation: 'should forward correct readings and event',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'gps reading',
+      payloadTemplate: GPS_PAYLOAD_THINGY91_FORMAT_02,
+      expectation: 'should forward correct readings and event',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'gps reading',
+      payloadTemplate: GPS_PAYLOAD_THINGY91_FORMAT_03,
+      expectation: 'should forward correct readings and event',
     })
 
     describe('multiple readings', function () {
@@ -67,7 +113,7 @@ describe('message Processing', function () {
 
       before(async function () {
         const timestampOne = moment().subtract(2, 'day').toISOString()
-        payloadOne = DUMMY_READING_PAYLOAD_1(timestampOne)
+        payloadOne = READING_PAYLOAD_1(timestampOne)
         context.resultOne = await context.kafka.publishAndWaitForResults(
           `payloads.${WASP_SENSOR_TYPE}`,
           payloadOne.message,
@@ -75,7 +121,7 @@ describe('message Processing', function () {
         )
 
         const timestampTwo = moment().subtract(1, 'day').toISOString()
-        payloadTwo = DUMMY_READING_PAYLOAD_2(timestampTwo)
+        payloadTwo = READING_PAYLOAD_2(timestampTwo)
         context.resultTwo = await context.kafka.publishAndWaitForResults(
           `payloads.${WASP_SENSOR_TYPE}`,
           payloadTwo.message,
@@ -91,6 +137,20 @@ describe('message Processing', function () {
         expect(readingsResultTwo).to.deep.equal(payloadTwo.expectedReadings)
       })
     })
+
+    singlePayloadTest({
+      context,
+      description: 'button event',
+      payloadTemplate: BUTTON_EVENT_PAYLOAD,
+      expectation: 'should forward the correct event',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'flip event',
+      payloadTemplate: FLIP_EVENT_PAYLOAD,
+      expectation: 'should forward the correct event',
+    })
   })
 
   describe('unexpected payloads', function () {
@@ -98,6 +158,20 @@ describe('message Processing', function () {
       context,
       description: 'unexpected message type',
       payloadTemplate: UNEXPECTED_MESSAGE_TYPE_PAYLOAD,
+      expectation: 'should not forward',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'unexpected button data',
+      payloadTemplate: UNEXPECTED_BUTTON_DATA_PAYLOAD,
+      expectation: 'should not forward',
+    })
+
+    singlePayloadTest({
+      context,
+      description: 'unexpected flip data',
+      payloadTemplate: UNEXPECTED_FLIP_DATA_PAYLOAD,
       expectation: 'should not forward',
     })
 

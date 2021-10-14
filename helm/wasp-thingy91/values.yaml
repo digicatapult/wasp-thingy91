@@ -4,7 +4,7 @@ kafka:
   enabled: true
 config:
   port: 80
-  waspSensorType: wasp-payload-parser-template
+  waspSensorType: thingy91
   logLevel: info
   kafkajsLogLevel: nothing
 
@@ -21,7 +21,7 @@ config:
     thingServiceName: wasp-thing-service
     thingServicePort: 80
 image:
-  repository: ghcr.io/digicatapult/wasp-payload-parser-template
+  repository: ghcr.io/digicatapult/wasp-thingy91
   pullPolicy: IfNotPresent
-  tag: 'v0.0.4'
+  tag: 'v0.0.12'
   pullSecrets: ['ghcr-digicatapult']

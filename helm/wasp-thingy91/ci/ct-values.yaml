@@ -28,6 +28,6 @@ waspthingmock:
       }
     }
 image:
-  repository: 'wasp-payload-parser-template'
+  repository: 'wasp-thingy91'
   tag: 'latest'
   PullPolicy: Never

@@ -1,8 +1,8 @@
 apiVersion: v2
-name: wasp-payload-parser-template
-appVersion: '0.0.4'
-description: A Helm chart for wasp-payload-parser-template
-version: '0.0.4'
+name: wasp-thingy91
+appVersion: '0.0.12'
+description: A Helm chart for wasp-thingy91
+version: '0.0.12'
 type: application
 maintainers:
   - name: digicatapult

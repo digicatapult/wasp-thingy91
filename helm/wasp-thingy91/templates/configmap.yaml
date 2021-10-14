@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "wasp-payload-parser-template.fullname" . }}-config
+  name: {{ include "wasp-thingy91.fullname" . }}-config
   labels:
-    {{- include "wasp-payload-parser-template.labels" . | nindent 4 }}
+    {{- include "wasp-thingy91.labels" . | nindent 4 }}
 data:
   port: {{ .Values.config.port | quote }}
   waspSensor: {{ .Values.config.waspSensorType }}
   logLevel: {{ .Values.config.logLevel }}
   kafkaLogLevel: {{ .Values.config.kafkajsLogLevel }}
-  kafkaBrokers: {{ include "wasp-payload-parser-template.kafka.brokers" . }}
+  kafkaBrokers: {{ include "wasp-thingy91.kafka.brokers" . }}
   kafkaReadingsTopic: {{ .Values.config.kafkaReadingsTopic }}
   kafkaEventsTopic: {{ .Values.config.kafkaEventsTopic }}
   kafkaPayloadRoutingPrefix: {{ .Values.config.kafkaPayloadRoutingPrefix }}

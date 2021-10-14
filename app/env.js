@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'test') {
 const vars = envalid.cleanEnv(
   process.env,
   {
-    WASP_SENSOR_TYPE: envalid.str({ default: 'wasp-payload-parser-template' }),
+    WASP_SENSOR_TYPE: envalid.str({ default: 'thingy91' }),
   },
   {
     strict: true,
