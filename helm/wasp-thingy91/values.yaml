@@ -23,5 +23,5 @@ config:
 image:
   repository: ghcr.io/digicatapult/wasp-thingy91
   pullPolicy: IfNotPresent
-  tag: 'v0.0.12'
+  tag: 'v0.0.13'
   pullSecrets: ['ghcr-digicatapult']
