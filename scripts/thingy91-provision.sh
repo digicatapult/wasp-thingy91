@@ -14,7 +14,7 @@ print_usage() {
   echo "  -a        Specify an alternative file with a wasp bearer token"
   echo "            (default ~/.wasp-stage_com-api-token)"
   echo "  -f        Specify an input csv file, must be formatted as"
-  echo "            serial,imei"
+  echo "            imei,serial"
   echo "            with unix line returns and no headers"
   echo "            (default thingy91-devices.csv)"
   echo "  -u        Specify the wasp instances base API url"
