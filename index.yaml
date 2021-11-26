@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   wasp-thingy91:
   - apiVersion: v2
+    appVersion: 0.0.13
+    created: "2021-11-26T11:37:36.33543414Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.7.3
+    - alias: waspthingmock
+      condition: waspthingmock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: ^8.7.1
+    description: A Helm chart for wasp-thingy91
+    digest: be60cff6b3603f069b34136388fb32425fefd73bcf1e384f5ca5526fbc5cffa9
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-thingy91
+    type: application
+    urls:
+    - https://digicatapult.github.io/wasp-thingy91/wasp-thingy91-0.0.13.tgz
+    version: 0.0.13
+  - apiVersion: v2
     appVersion: 0.0.12
     created: "2021-10-14T12:44:04.15297118Z"
     dependencies:
@@ -25,4 +49,4 @@ entries:
     urls:
     - https://digicatapult.github.io/wasp-thingy91/wasp-thingy91-0.0.12.tgz
     version: 0.0.12
-generated: "2021-10-14T12:44:04.143497352Z"
+generated: "2021-11-26T11:37:36.326145809Z"
