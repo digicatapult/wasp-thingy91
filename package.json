@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/wasp-thingy91",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Payload parsing service for Thingy91 devices",
   "main": "app/index.js",
   "scripts": {
